@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox roundBox;
     private CheckBox formBox;
     private ImageView imgView;
+    private ImageView imgFormula;
 
     private AlertDialog startDialog;
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         roundBox = findViewById(R.id.chkRounded);
         formBox = findViewById(R.id.chkFormula);
         imgView = findViewById(R.id.img);
+        imgFormula = findViewById(R.id.imgFormula);
 
         unitType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -110,6 +112,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 doConvert();
+            }
+        });
+
+        formBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if ((b)) {
+                    imgFormula.setVisibility(View.VISIBLE);
+                } else {
+                    imgFormula.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
