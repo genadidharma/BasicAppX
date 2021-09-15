@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton radioButton = (RadioButton) findViewById(i);
                 ArrayAdapter<CharSequence> adapter;
 
-                if(radioButton.getId() == R.id.rbTemp){
+                if (radioButton.getId() == R.id.rbTemp) {
                     adapter = ArrayAdapter.createFromResource(unitType.getContext(), R.array.tempList, android.R.layout.simple_spinner_item);
                     imgView.setImageResource(R.drawable.temperature);
-                }else if(radioButton.getId() == R.id.rbWeight){
+                } else if (radioButton.getId() == R.id.rbWeight) {
                     adapter = ArrayAdapter.createFromResource(unitType.getContext(), R.array.weightList, android.R.layout.simple_spinner_item);
                     imgView.setImageResource(R.drawable.weight);
-                }else{
+                } else {
                     adapter = ArrayAdapter.createFromResource(unitType.getContext(), R.array.distList, android.R.layout.simple_spinner_item);
                     imgView.setImageResource(R.drawable.distance);
                 }
@@ -115,5 +115,26 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return new DecimalFormat("#.#####").format(val);
         }
+    }
+
+    protected void doConvert() {
+        RadioButton radio = (RadioButton) findViewById(unitType.getCheckedRadioButtonId());
+
+        double input = Double.parseDouble(inputTxt.getText().toString());
+        boolean rounded = roundBox.isChecked();
+
+        String oriUnit = unitOri.getSelectedItem().toString();
+        String convUnit = unitConv.getSelectedItem().toString();
+        double result;
+
+        if (radio.getId() == R.id.rbTemp) {
+            result = temp.convert(oriUnit, convUnit, input);
+        } else if (radio.getId() == R.id.rbWeight) {
+            result = weight.convert(oriUnit, convUnit, input);
+        } else {
+            result = dist.convert(oriUnit, convUnit, input);
+        }
+
+        outputTxt.setText(strResult(result, rounded));
     }
 }
