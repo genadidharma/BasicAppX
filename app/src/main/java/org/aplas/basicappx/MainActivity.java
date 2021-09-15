@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -45,6 +47,30 @@ public class MainActivity extends AppCompatActivity {
         roundBox = findViewById(R.id.chkRounded);
         formBox = findViewById(R.id.chkFormula);
         imgView = findViewById(R.id.img);
+
+        unitType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton radioButton = (RadioButton) findViewById(i);
+                ArrayAdapter<CharSequence> adapter;
+
+                if(radioButton.getId() == R.id.rbTemp){
+                    adapter = ArrayAdapter.createFromResource(unitType.getContext(), R.array.tempList, android.R.layout.simple_spinner_item);
+                    imgView.setImageResource(R.drawable.temperature);
+                }else if(radioButton.getId() == R.id.rbWeight){
+                    adapter = ArrayAdapter.createFromResource(unitType.getContext(), R.array.weightList, android.R.layout.simple_spinner_item);
+                    imgView.setImageResource(R.drawable.weight);
+                }else{
+                    adapter = ArrayAdapter.createFromResource(unitType.getContext(), R.array.distList, android.R.layout.simple_spinner_item);
+                    imgView.setImageResource(R.drawable.distance);
+                }
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                unitOri.setAdapter(adapter);
+                unitConv.setAdapter(adapter);
+
+            }
+        });
     }
 
     @Override
